@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/WEB-INF/templates/template_menu.xhtml">
+
+	<ui:define name="conteudo">
+		<div class="container">
+			<div class="hero-unit">
+				<h1>Listagem</h1>
+				<hr />
+				<h:form styleClass="form-signin">
+					<h:panelGrid id="listaClientes">
+
+
+					
+							<!-- Table -->
+							<table class="table">
+
+								<tr>
+									<th>Nome</th>
+									<th>Sobrenome</th>
+									<th>CEP</th>
+									<th>Opções</th>
+								</tr>
+
+								<ui:repeat var="cliente" value="#{clienteMB.lsClientes}"
+									varStatus="status">
+
+									<h:panelGroup rendered="#{status.even}">
+										<tr>
+											<td>#{cliente.nome}</td>
+											<td>#{cliente.sobrenome}</td>
+											<td>#{cliente.cep}</td>
+											<td><h:commandButton value="Editar"
+													action="#{clienteMB.editar(cliente.id)}"
+													styleClass="no-decor" /> 
+													
+													</td>
+										</tr>
+									</h:panelGroup>
+
+
+								</ui:repeat>
+							</table>
+
+		
+
+					</h:panelGrid>
+
+					<br />
+					<h:commandButton value="Novo" action="#{clienteMB.novo()}"
+						styleClass="btn btn-success"></h:commandButton>
+					<hr />
+
+
+				</h:form>
+
+			</div>
+		</div>
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/WEB-INF/templates/template_menu.xhtml">
+
+	<ui:define name="conteudo">
+		<div class="container">
+			<div class="hero-unit">
+				<h1>Listagem</h1>
+				<hr />
+				<h:form styleClass="form-signin">
+					<h:panelGrid id="listaClientes">
+						<rich:dataTable value="#{clienteMB.lsClientes}" var="cliente"
+							iterationStatusVar="it" id="table" rows="10">
+							<rich:column>
+								<f:facet name="header">Nome</f:facet>
+								<h:outputText value="#{cliente.nome}" />
+							</rich:column>
+
+							<rich:column>
+								<f:facet name="header">Sobrenome</f:facet>
+								<h:outputText value="#{cliente.sobrenome}" />
+							</rich:column>
+							
+							<rich:column>
+								<f:facet name="header">CEP</f:facet>
+								<h:outputText value="#{cliente.cep}" />
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">Opções</f:facet>
+								<h:commandButton value="Editar" action="#{clienteMB.editar(cliente.id)}" styleClass="no-decor" />
+								<a4j:commandButton styleClass="no-decor" execute="@this"
+									render="@this" value="Remover"
+									oncomplete="#{rich:component('confirmPane')}.show()">
+									<a4j:param value="#{cliente.id}"
+										assignTo="#{clienteMB.clienteEmEdicao}" />
+								</a4j:commandButton>
+							</rich:column>
+							<f:facet name="footer">
+								<rich:dataScroller page="#{clienteMB.page}" for="table"
+									status="status" />
+							</f:facet>
+						</rich:dataTable>
+					</h:panelGrid>
+
+					<br />
+					<h:commandButton value="Novo" action="#{clienteMB.novo()}" styleClass="btn btn-success"></h:commandButton>
+
+					<h:button value="Limpar campos" styleClass="btn"></h:button>
+					<hr />
+					
+					
+				</h:form>
+
+			</div>
+		</div>
+
+		<a4j:jsFunction name="remove" action="#{clienteMB.remove}"
+			render="table" execute="@this"
+			oncomplete="#{rich:component('confirmPane')}.hide();document.getElementById('formPesquisaCliente').submit(); return false;" />
+
+		<rich:popupPanel id="confirmPane" autosized="true">
+            Tem certeza que deseja remover o cliente?
+            <a4j:commandButton value="Cancelar"
+				onclick="#{rich:component('confirmPane')}.hide(); return false;" />
+			<a4j:commandButton value="Remover" onclick="remove(); return false;" />
+		</rich:popupPanel>
+
+	</ui:define>
+</ui:composition>

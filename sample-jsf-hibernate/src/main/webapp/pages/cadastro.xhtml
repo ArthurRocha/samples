@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/template_menu.xhtml">
+
+	<ui:define name="conteudo">
+		<div class="container">
+			<div class="hero-unit">
+				<h1>Cadastro</h1>
+				<hr />
+				<h:form styleClass="form-signin">
+					<h:panelGrid columns="3"
+						columnClasses="colunaLabels,colunaCampos,colunaErros"
+						id="cadastroGrid">
+						<h:outputText value="#{msgs['cliente.label.nome']}" />
+						<h:inputText value="#{clienteCadastroMB.cliente.nome}" id="nome"
+							required="true" size="40" validatorMessage="#{msgs['cliente.mensagem.validacao.nome']}"
+							requiredMessage="#{msgs['cliente.mensagem.requerido.nome']}">
+							<f:validateLength minimum="3" maximum="60" />
+						</h:inputText>
+						<h:message id="nomeMsg" for="nome" />
+
+						<h:outputText value="#{msgs['cliente.label.sobrenome']}" />
+						<h:inputText value="#{clienteCadastroMB.cliente.sobrenome}" id="sobrenome"
+							required="true" size="40" validatorMessage="#{msgs['cliente.mensagem.validacao.sobrenome']}"
+							requiredMessage="#{msgs['cliente.mensagem.requerido.sobrenome']}">
+							<f:validateLength minimum="3" maximum="60" />
+						</h:inputText>
+						<h:message id="sobrenomeMsg" for="sobrenome" />
+
+						<h:outputText value="#{msgs['cliente.label.endereco']}" />
+						<h:inputText value="#{clienteCadastroMB.cliente.endereco}" id="endereco"
+							required="true" size="40"
+							 requiredMessage="#{msgs['cliente.mensagem.requerido.endereco']}">
+							<f:validateLength minimum="5" maximum="60" />
+						</h:inputText>
+						<h:message id="enderecoMsg" for="endereco" />
+
+						<h:outputText value="#{msgs['cliente.label.cep']}" />
+						<h:inputText value="#{clienteCadastroMB.cliente.cep}" id="cep"
+							required="true" size="40" maxlength="8" validatorMessage="#{msgs['cliente.mensagem.validacao.cep']}"
+							requiredMessage="#{msgs['cliente.mensagem.requerido.cep']}">
+							<f:validateLength minimum="8" maximum="8" />
+						</h:inputText>
+						<h:message id="cepMsg" for="cep" />
+
+						<h:outputText value="#{msgs['cliente.label.telefone']}" />
+						<h:inputText value="#{clienteCadastroMB.cliente.telefone}"
+							id="telefone" required="true" size="40" maxlength="12"
+							requiredMessage="#{msgs['cliente.mensagem.requerido.telefone']}">
+						</h:inputText>
+						<h:message id="foneMsg" for="telefone" />
+
+					</h:panelGrid>
+
+					<br />
+					<h:commandButton value="Salvar" action="#{clienteCadastroMB.acaoSalvar()}" styleClass="btn btn-success"/>
+
+					<h:button value="Limpar campos" styleClass="btn"></h:button>
+					<hr />
+				</h:form>
+
+			</div>
+		</div>
+
+	</ui:define>
+</ui:composition>
